@@ -154,3 +154,281 @@ resource "aws_security_group" "ec2_sg" {
     Name = "ec2_sg"
   }
 }
+
+#ec2 Instances
+
+resource "aws_instance" "server_1" {
+  ami                    = "ami-00b98fcf187a433fa"
+  instance_type          = "t3.micro"
+  subnet_id              = aws_subnet.public_subnet_1.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+
+              systemctl start httpd
+              systemctl enable httpd
+
+              cat <<'HTML' > /var/www/html/index.html
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Server 1</title>
+
+                  <style>
+                      * {
+                          margin: 0;
+                          padding: 0;
+                          box-sizing: border-box;
+                      }
+
+                      body {
+                          height: 100vh;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          font-family: Arial, sans-serif;
+                          background: linear-gradient(135deg, #050b18, #0a3d91);
+                          color: white;
+                          overflow: hidden;
+                      }
+
+                      .container {
+                          text-align: center;
+                          padding: 60px;
+                          border: 1px solid rgba(255,255,255,0.2);
+                          border-radius: 25px;
+                          background: rgba(255,255,255,0.08);
+                          backdrop-filter: blur(10px);
+                          box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                      }
+
+                      .image-placeholder {
+                          width: 180px;
+                          height: 180px;
+                          margin: 0 auto 30px;
+                          border-radius: 50%;
+                          border: 4px solid #ffffff;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          font-size: 14px;
+                          background: rgba(255,255,255,0.1);
+                      }
+
+                      h1 {
+                          font-size: 3rem;
+                          letter-spacing: 3px;
+                          text-transform: uppercase;
+                          text-shadow: 0 0 20px rgba(255,255,255,0.5);
+                      }
+
+                      p {
+                          margin-top: 20px;
+                          font-size: 1.2rem;
+                          opacity: 0.8;
+                      }
+
+                      .badge {
+                          display: inline-block;
+                          margin-top: 30px;
+                          padding: 10px 20px;
+                          border-radius: 50px;
+                          background: #ffffff;
+                          color: #0a3d91;
+                          font-weight: bold;
+                      }
+                  </style>
+              </head>
+
+              <body>
+                  <div class="container">
+
+                      <div class="image-placeholder">
+                          IMAGE COMING SOON
+                      </div>
+
+                      <h1>Why So Serious?<br>This Is Server 1 :D</h1>
+
+                      <p>You have reached EC2 Instance 1</p>
+
+                      <div class="badge">
+                          SERVER 1 • ACTIVE
+                      </div>
+
+                  </div>
+              </body>
+              </html>
+              HTML
+              EOF
+
+  tags = {
+    Name = "server-1"
+  }
+}
+
+resource "aws_instance" "server_2" {
+  ami                    = "ami-00b98fcf187a433fa"
+  instance_type          = "t3.micro"
+  subnet_id              = aws_subnet.public_subnet_2.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+
+              systemctl start httpd
+              systemctl enable httpd
+
+              cat <<'HTML' > /var/www/html/index.html
+              <!DOCTYPE html>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Server 2</title>
+
+                  <style>
+                      * {
+                          margin: 0;
+                          padding: 0;
+                          box-sizing: border-box;
+                      }
+
+                      body {
+                          height: 100vh;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          font-family: Arial, sans-serif;
+                          background: linear-gradient(135deg, #180505, #9b111e);
+                          color: white;
+                          overflow: hidden;
+                      }
+
+                      .container {
+                          text-align: center;
+                          max-width: 900px;
+                          padding: 60px;
+                          border: 1px solid rgba(255,255,255,0.2);
+                          border-radius: 25px;
+                          background: rgba(255,255,255,0.08);
+                          backdrop-filter: blur(10px);
+                          box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                      }
+
+                      .image-placeholder {
+                          width: 180px;
+                          height: 180px;
+                          margin: 0 auto 35px;
+                          border-radius: 50%;
+                          border: 4px solid white;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          font-size: 14px;
+                          background: rgba(255,255,255,0.1);
+                      }
+
+                      h1 {
+                          font-size: 2.7rem;
+                          line-height: 1.3;
+                          letter-spacing: 2px;
+                          text-shadow: 0 0 20px rgba(255,255,255,0.5);
+                      }
+
+                      p {
+                          margin-top: 25px;
+                          font-size: 1.2rem;
+                          opacity: 0.8;
+                      }
+
+                      .badge {
+                          display: inline-block;
+                          margin-top: 30px;
+                          padding: 10px 20px;
+                          border-radius: 50px;
+                          background: white;
+                          color: #9b111e;
+                          font-weight: bold;
+                      }
+                  </style>
+              </head>
+
+              <body>
+                  <div class="container">
+
+                      <div class="image-placeholder">
+                          IMAGE COMING SOON
+                      </div>
+
+                      <h1>
+                          You merely adopted Server 2,<br>
+                          I was born in it, molded by it!!!
+                      </h1>
+
+                      <p>You have reached EC2 Instance 2</p>
+
+                      <div class="badge">
+                          SERVER 2 • ACTIVE
+                      </div>
+
+                  </div>
+              </body>
+              </html>
+              HTML
+              EOF
+
+  tags = {
+    Name = "server-2"
+  }
+}
+
+
+
+#Target group 
+resource "aws_lb_target_group" "alb_target_group" {
+
+    name = "alb-target-group"
+    port = 80
+    protocol = "HTTP"
+    vpc_id = aws_vpc.customvpc.id
+
+
+    health_check {
+        path = "/"
+        protocol = "HTTP"
+        port                = "traffic-port"
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 5
+    interval            = 30
+  }
+
+  tags = {
+    Name = "alb-target-group"
+  }
+}
+
+# target group attachments
+
+
+resource "aws_lb_target_group_attachment" "server_1_attachment" {
+  target_group_arn = aws_lb_target_group.alb_target_group.arn
+  target_id        = aws_instance.server_1.id
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "server_2_attachment" {
+  target_group_arn = aws_lb_target_group.alb_target_group.arn
+  target_id        = aws_instance.server_2.id
+  port             = 80
+}
+
+
+#ALB
