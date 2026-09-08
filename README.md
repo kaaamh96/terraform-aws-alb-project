@@ -67,7 +67,7 @@ TERRAFORM-AWS-ALB/
   - **ALB Security Group**: Allows inbound HTTP (Port 80) from `0.0.0.0/0`.
   - **EC2 Security Group**: Allows inbound HTTP (Port 80) restricted to the ALB Security Group, plus SSH (Port 22).
 - **Compute & Load Balancing**:
-  - **2 EC2 Instances**: Bootstrapped via `user_data` shell script to install Apache, download image assets from the `images/` directory, and dynamically write host details to `index.html`.
+  - **2 EC2 Instances**: Bootstrapped using user_data shell scripts to install and configure Apache HTTP Server, automatically generate custom index.html landing pages, and display unique server identifiers to demonstrate traffic distribution through the Application Load Balancer.
   - **Target Group & Listener**: Target group with health check attributes configured on Port 80, attached to the ALB listener.
 
 ---
