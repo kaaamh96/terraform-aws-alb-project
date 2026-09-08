@@ -107,4 +107,9 @@ TERRAFORM-AWS-ALB/
 
 
 ---
+## Screen Recording
+
+The video below demonstrates the Application Load Balancer distributing HTTP traffic across two EC2 instances.
+
+[▶️ Watch the ALB demonstration](YOUR_VIDEO_LINK)
 
