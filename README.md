@@ -6,30 +6,13 @@ This project demonstrates how to provision and configure an **AWS Application Lo
 
 ## 📌 Architecture Diagram & Flow
 
-```text
-                     [ Internet Traffic ]
-                              │
-                              ▼
-                     ┌────────────────┐
-                     │  Application   │
-                     │ Load Balancer  │ (Public Subnets)
-                     └───────┬────────┘
-                             │
-            ┌────────────────┴────────────────┐
-            ▼                                 ▼
-   ┌─────────────────┐               ┌─────────────────┐
-   │ Public Subnet 1 │               │ Public Subnet 2 │
-   │   (AZ: us-west-1a)              │   (AZ: us-west-1b)│
-   │ ┌─────────────┐ │               │ ┌─────────────┐ │
-   │ │ EC2 App 1   │ │               │ │ EC2 App 2   │ │
-   │ └─────────────┘ │               │ └─────────────┘ │
-   └─────────────────┘               └─────────────────┘
-            └────────────────┬────────────────┘
-                             ▼
-                    ┌─────────────────┐
-                    │  Target Group   │
-                    └─────────────────┘
-```
+
+
+
+<img width="1312" height="1199" alt="60493478-1cb9-44f3-8167-6db2cbc55fee" src="https://github.com/user-attachments/assets/f9d729bc-9a88-4199-8d89-fb60c8534742" />
+
+                    
+
 
 1. **User Request**: Inbound HTTP requests hit the Application Load Balancer (ALB).
 2. **Listener & Rules**: The ALB listener forwards traffic on Port 80 to the Target Group.
