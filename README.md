@@ -19,7 +19,7 @@ This project demonstrates how to provision and configure an **AWS Application Lo
             ▼                                 ▼
    ┌─────────────────┐               ┌─────────────────┐
    │ Public Subnet 1 │               │ Public Subnet 2 │
-   │   (AZ: us-east-1a)              │   (AZ: us-east-1b)│
+   │   (AZ: us-west-1a)              │   (AZ: us-west-1b)│
    │ ┌─────────────┐ │               │ ┌─────────────┐ │
    │ │ EC2 App 1   │ │               │ │ EC2 App 2   │ │
    │ └─────────────┘ │               │ └─────────────┘ │
@@ -33,8 +33,8 @@ This project demonstrates how to provision and configure an **AWS Application Lo
 
 1. **User Request**: Inbound HTTP requests hit the Application Load Balancer (ALB).
 2. **Listener & Rules**: The ALB listener forwards traffic on Port 80 to the Target Group.
-3. **Target Group Routing**: The ALB routes requests evenly across healthy EC2 instances using a round-robin strategy.
-4. **Multi-AZ Resiliency**: Deploying instances across two separate Availability Zones guarantees application availability during single-AZ outages.
+3. **Target Group Routing**: The ALB distributes incoming requests across healthy EC2 instances registered in the Target Group.
+4. **Multi-AZ Resiliency**: Deploying instances across two separate Availability Zones improves application availability and resilience in the event of an Availability Zone failure.
 
 ---
 
@@ -46,16 +46,14 @@ TERRAFORM-AWS-ALB/
 ├── images/
 │   ├── image1.png          # Image 1 referenced in web page
 │   └── image2.png          # Image 2 referenced in web page
-├── .gitignore
-├── .terraform.lock.hcl
+├
 ├── main.tf                 # Core Terraform resources (VPC, Subnets, ALB, EC2, SG)
 ├── outputs.tf              # Infrastructure outputs (ALB DNS, Instance IPs)
 ├── providers.tf            # AWS provider configurations
 ├── README.md               # Project documentation
-├── terraform.tfstate
-├── terraform.tfstate.backup
-├── terraform.tfvars        # Input variable definitions
+
 └── variables.tf            # Variable declarations
+
 ```
 
 ---
@@ -65,7 +63,7 @@ TERRAFORM-AWS-ALB/
 - **Networking**: Custom VPC with 2 Public Subnets in different AZs, an Internet Gateway, and Route Table associations.
 - **Security Groups**: 
   - **ALB Security Group**: Allows inbound HTTP (Port 80) from `0.0.0.0/0`.
-  - **EC2 Security Group**: Allows inbound HTTP (Port 80) restricted to the ALB Security Group, plus SSH (Port 22).
+  - **EC2 Security Group**: Allows inbound HTTP (Port 80) only from the ALB Security Group.
 - **Compute & Load Balancing**:
   - **2 EC2 Instances**: Bootstrapped using user_data shell scripts to install and configure Apache HTTP Server, automatically generate custom index.html landing pages, and display unique server identifiers to demonstrate traffic distribution through the Application Load Balancer.
   - **Target Group & Listener**: Target group with health check attributes configured on Port 80, attached to the ALB listener.
