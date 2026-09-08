@@ -6,6 +6,7 @@
 # Route table
 # Security groups
 # EC2 instances
+# had to create user data script. had to create images folder in repo and put 2 pics in there then reference in user data and html line
 # User data
 # Target group
 # ALB
@@ -193,6 +194,10 @@ resource "aws_instance" "server_1" {
               systemctl start httpd
               systemctl enable httpd
 
+              # Download Server 1 image
+              wget "https://raw.githubusercontent.com/kaaamh96/terraform-aws-alb-project/main/images/server1joker.jpg" \
+                -O /var/www/html/server1joker.jpg
+
               cat <<'HTML' > /var/www/html/index.html
               <!DOCTYPE html>
               <html lang="en">
@@ -240,6 +245,13 @@ resource "aws_instance" "server_1" {
                           align-items: center;
                           font-size: 14px;
                           background: rgba(255,255,255,0.1);
+                          overflow: hidden;
+                      }
+
+                      .image-placeholder img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
                       }
 
                       h1 {
@@ -271,7 +283,7 @@ resource "aws_instance" "server_1" {
                   <div class="container">
 
                       <div class="image-placeholder">
-                          IMAGE COMING SOON
+                          <img src="/server1joker.jpg" alt="Joker">
                       </div>
 
                       <h1>Why So Serious?<br>This Is Server 1 :D</h1>
@@ -306,6 +318,10 @@ resource "aws_instance" "server_2" {
 
               systemctl start httpd
               systemctl enable httpd
+
+              # Download Server 2 image
+              wget "https://raw.githubusercontent.com/kaaamh96/terraform-aws-alb-project/main/images/server2bane.jpg" \
+                -O /var/www/html/server2bane.jpg
 
               cat <<'HTML' > /var/www/html/index.html
               <!DOCTYPE html>
@@ -355,6 +371,13 @@ resource "aws_instance" "server_2" {
                           align-items: center;
                           font-size: 14px;
                           background: rgba(255,255,255,0.1);
+                          overflow: hidden;
+                      }
+
+                      .image-placeholder img {
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
                       }
 
                       h1 {
@@ -386,7 +409,7 @@ resource "aws_instance" "server_2" {
                   <div class="container">
 
                       <div class="image-placeholder">
-                          IMAGE COMING SOON
+                          <img src="/server2bane.jpg" alt="Bane">
                       </div>
 
                       <h1>
