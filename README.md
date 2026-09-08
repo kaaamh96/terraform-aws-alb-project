@@ -1,6 +1,6 @@
 # Application Load Balancer (ALB) Architecture on AWS (Terraform)
 
-This project demonstrates how to provision and configure an **AWS Application Load Balancer (ALB)** using **Terraform** to distribute HTTP traffic across multiple **EC2 instances** spanning two **Availability Zones (AZs)** for high availability and fault tolerance.
+This project demonstrates how to provision and configure an AWS Application Load Balancer (ALB) using Terraform to distribute HTTP traffic across multiple EC2 instances spanning two Availability Zones (AZs), demonstrating high availability and fault tolerance.
 
 ---
 
